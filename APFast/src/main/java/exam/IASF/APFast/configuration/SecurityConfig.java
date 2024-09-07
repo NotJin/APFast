@@ -44,14 +44,13 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/users").authenticated()
-                        .requestMatchers("/vehicle/create").hasAnyAuthority( "ADMIN")
-                        .requestMatchers("/vehicle/edit").hasAnyAuthority( "ADMIN")
+                        .requestMatchers("/api/vehicles").authenticated()
+                        .requestMatchers("/api/admin/monitor").hasAnyAuthority( "ADMIN")
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(login -> login
-                        .usernameParameter("email")
+                        .usernameParameter("userName")
 
                         .permitAll()
                 )

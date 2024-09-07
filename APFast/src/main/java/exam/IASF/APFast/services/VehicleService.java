@@ -14,42 +14,24 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class VehicleService implements IVehicleService{
-    private final VehicleRepository vehicleRepository;
-    private final ModelMapper modelMapper;
+public class VehicleService {
 
     @Autowired
-    public VehicleService(VehicleRepository vehicleRepository, ModelMapper modelMapper) {
-        this.vehicleRepository = vehicleRepository;
-        this.modelMapper = modelMapper;
-    }
+    private VehicleRepository vehicleRepository;
 
-    @Override
-    public Vehicle createVehicle(VehicleCreateDTO vehicleCreateDTO) {
-
-        return null;
-    }
-
-    @Override
     public List<Vehicle> getAllVehicles() {
-        List<Vehicle> vehicles = vehicleRepository.findAll();
-        return vehicles.stream()
-                .map(vehicle -> modelMapper.map(vehicle, Vehicle.class))
-                .collect(Collectors.toList());
+        return vehicleRepository.findAll();
     }
 
-    @Override
-    public Optional<Vehicle> getVehicleById(Long id) {
-        return Optional.empty();
+    public Vehicle getVehicleById(Long id) {
+        return vehicleRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public Vehicle updateVehicle(VehicleEditDTO vehicleEditDTO) {
-        return null;
+    public Vehicle saveVehicle(Vehicle vehicle) {
+        return vehicleRepository.save(vehicle);
     }
 
-    @Override
     public void deleteVehicle(Long id) {
-
+        vehicleRepository.deleteById(id);
     }
 }
